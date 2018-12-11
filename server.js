@@ -21,7 +21,7 @@ io.on('connection', function (socket) {
     socket.on("uzum em jnjem", function () {
         messages = [];
         io.sockets.emit("de jnjeq dzer motic");
-    });
+    });        
  });
 
 

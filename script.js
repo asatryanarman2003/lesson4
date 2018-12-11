@@ -3,7 +3,7 @@ function main() {
     var chatDiv = document.getElementById('chat');
     var input = document.getElementById('message');
     var button = document.getElementById('submit');
-    var button2 = document.getElementById('delete');
+    var del = document.getElementById('del');
 
     function handleSubmit(evt) {
         var val = input.value;
@@ -11,11 +11,9 @@ function main() {
             socket.emit("send message", val);
         }
     }
-    function deleteMessage() {
-        socket.emit("uzum em jnjem");
-    }
+    
     button.onclick = handleSubmit;
-    button2.onclick = deleteMessage;
+    del.onclick = handleDelete;
 
 
     function handleMessage(msg) {
@@ -24,13 +22,25 @@ function main() {
         chatDiv.appendChild(p);
         input.value = "";
     }
-    function deleteMessageFromDom() {
+    function handleDelete() {
+
+        socket.emit("uzum em jnjem")
+
         
+    }
+
+    function deleteFromDom(){
+        var pTags = document.getElementsByTagName('p');
+        for(var i in pTags){
+            if(pTags.length > 0 ){
+                chatDiv.removeChild(pTags[0])
+            }
+        }
     }
 
     socket.on('display message', handleMessage);
 
-    socket.on('de jnjeq dzer motic', deleteMessageFromDom);
+    socket.on('de jnjeq dzer motic', deleteFromDom);
 } // main closing bracket
 
 window.onload = main;
